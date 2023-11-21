@@ -26,7 +26,14 @@ function App() {
     console.log('load from storage key', storageKey)
     monday.m?.storage.instance.getItem(storageKey).then(resp => {
       console.log('resp load data', resp)
-      setText(resp.data.value || '');
+      try {
+      const textValue = atob(resp.data.value);
+      setText(textValue || '');
+      } catch(e) {
+        console.error('parse data error, expect base64 value but retrive')
+        console.error(resp.data.value)
+        console.log(e)
+      }
       setIsDirty(false)
     })
   }, [monday])
@@ -51,7 +58,8 @@ function App() {
   const onSave = useCallback(() => {
     console.log('save to storage key', storageKey)
     setIsSaving(true);
-    monday.m?.storage.instance.setItem(storageKey, text).then((resp) => {
+    const value = btoa(text)
+    monday.m?.storage.instance.setItem(storageKey, value).then((resp) => {
       console.log('saved', resp)
       setIsSaving(false)
       setIsEdit(false)
