@@ -2,6 +2,8 @@
   display: flex;
   flex-direction: column;
   height: 100vh;
+  padding: 8px;
+  box-sizing: border-box;
 }
 
 .debug {
@@ -20,7 +22,6 @@
 }
 
 .content-container {
-  padding: 8px;
   flex: 1 1;
   display: flex;
 }
@@ -37,7 +38,7 @@
 }
 
 .control-container {
-  margin-top: 8px;
+  margin-bottom: 8px;
   flex: 0 0
 }
 

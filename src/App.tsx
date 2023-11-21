@@ -27,9 +27,9 @@ function App() {
     monday.m?.storage.instance.getItem(storageKey).then(resp => {
       console.log('resp load data', resp)
       try {
-      const textValue = atob(resp.data.value);
-      setText(textValue || '');
-      } catch(e) {
+        const textValue = atob(resp.data.value);
+        setText(textValue || '');
+      } catch (e) {
         console.error('parse data error, expect base64 value but retrive')
         console.error(resp.data.value)
         console.log(e)
@@ -77,6 +77,16 @@ function App() {
   return (
     <div className="App">
       <div className='debug'>{monday.mContext?.data.itemId}</div>
+      <div className="control-container">
+        {
+          isEdit ?
+            <Button disabled={isSaving} onClick={onCancel}>👀</Button>
+            :
+            <Button onClick={onEdit}>📝</Button>
+        }
+        {isDirty ? <Button marginLeft disabled={isSaving} onClick={onSave}>💾</Button> : null}
+
+      </div>
       <div className="content-container">
         {
           isEdit ?
@@ -89,18 +99,10 @@ function App() {
             </div>
         }
       </div>
-      <div className="control-container">
-        {
-          isEdit ?
-            <Button disabled={isSaving} onClick={onCancel}>❌ Preview</Button>
-            :
-            <Button onClick={onEdit}>📝 Edit</Button>
-        }
-        {isDirty ? <Button marginLeft disabled={isSaving} onClick={onSave}>💾 Save</Button> : null}
-        <div className='debug'>
-          <button onClick={reloadData}>load</button>
-          <button onClick={onLoad}>load context</button>
-        </div>
+
+      <div className='debug'>
+        <button onClick={reloadData}>load</button>
+        <button onClick={onLoad}>load context</button>
       </div>
     </div>
   );
