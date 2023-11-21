@@ -30,6 +30,10 @@
   display: block
 }
 
+.markdown-container img {
+  max-width: 640px;
+}
+
 .text-container {
   display: flex;
   align-items: stretch;
