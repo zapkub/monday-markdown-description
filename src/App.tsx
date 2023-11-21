@@ -16,6 +16,10 @@ function App() {
   }, [])
 
   const [text, setText] = useState("")
+  const [isEdit, setIsEdit] = useState<boolean>(false);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [isDirty, setIsDirty] = useState<boolean>(false);
+
   const storageKey = useMemo(() => `mfmd_value_${monday.mContext?.data.itemId}`, [monday])
 
   const reloadData = useCallback(() => {
@@ -23,13 +27,21 @@ function App() {
     monday.m?.storage.instance.getItem(storageKey).then(resp => {
       console.log('resp load data', resp)
       setText(resp.data.value || '');
-    }) 
+      setIsDirty(false)
+    })
   }, [monday])
 
   const onChange = useCallback((evt) => {
-      setText(evt.target.value)
+    setIsDirty(true)
+    setText(evt.target.value)
   }, [setText])
 
+  const onEdit = useCallback(() => {
+    setIsEdit(true)
+  }, [isEdit])
+  const onCancel = useCallback(() => {
+    setIsEdit(false)
+  }, [isEdit])
 
   useEffect(() => {
     console.log('context changed, reload data')
@@ -37,8 +49,12 @@ function App() {
 
   const onSave = useCallback(() => {
     console.log('save to storage key', storageKey)
+    setIsSaving(true);
     monday.m?.storage.instance.setItem(storageKey, text).then((resp) => {
       console.log('saved', resp)
+      setIsSaving(false)
+      setIsEdit(false)
+      setIsDirty(false)
     })
   }, [text])
   const onLoad = useCallback(() => {
@@ -51,15 +67,27 @@ function App() {
 
   return (
     <div className="App">
-      <div>{monday.mContext?.data.itemId}</div>
+      <div className='debug'>{monday.mContext?.data.itemId}</div>
       <div className="content-container">
-        <textarea className="md-source" value={text} onChange={onChange} />
-        <Markdown children={text} />
+        {
+          isEdit ?
+            <textarea disabled={isSaving} className="md-source" value={text} onChange={onChange} />
+            :
+            <Markdown children={text} />
+        }
       </div>
       <div className="control-container">
-        <Button onClick={onSave}>save</Button>
-        <button onClick={reloadData}>load</button>
-        <button onClick={onLoad}>load context</button>
+        {
+          isEdit ?
+            <Button disabled={isSaving} onClick={onCancel}>❌ Preview</Button>
+            :
+            <Button onClick={onEdit}>📝 Edit</Button>
+        }
+        {isDirty ? <Button marginLeft disabled={isSaving} onClick={onSave}>💾 Save</Button> : null}
+        <div className='debug'>
+          <button onClick={reloadData}>load</button>
+          <button onClick={onLoad}>load context</button>
+        </div>
       </div>
     </div>
   );
