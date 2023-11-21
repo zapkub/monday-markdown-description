@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "https://zapkub.github.io/monday-markdown-description/static/css/main.86c348cc.css",
-    "main.js": "https://zapkub.github.io/monday-markdown-description/static/js/main.bc8cb4c9.js",
+    "main.js": "https://zapkub.github.io/monday-markdown-description/static/js/main.24882cbf.js",
     "static/js/787.653fa1bb.chunk.js": "https://zapkub.github.io/monday-markdown-description/static/js/787.653fa1bb.chunk.js",
     "index.html": "https://zapkub.github.io/monday-markdown-description/index.html",
     "main.86c348cc.css.map": "https://zapkub.github.io/monday-markdown-description/static/css/main.86c348cc.css.map",
-    "main.bc8cb4c9.js.map": "https://zapkub.github.io/monday-markdown-description/static/js/main.bc8cb4c9.js.map",
+    "main.24882cbf.js.map": "https://zapkub.github.io/monday-markdown-description/static/js/main.24882cbf.js.map",
     "787.653fa1bb.chunk.js.map": "https://zapkub.github.io/monday-markdown-description/static/js/787.653fa1bb.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.86c348cc.css",
-    "static/js/main.bc8cb4c9.js"
+    "static/js/main.24882cbf.js"
   ]
 }

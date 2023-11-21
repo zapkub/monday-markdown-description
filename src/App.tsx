@@ -45,6 +45,7 @@ function App() {
 
   useEffect(() => {
     console.log('context changed, reload data')
+    reloadData();
   }, [monday.mContext])
 
   const onSave = useCallback(() => {
