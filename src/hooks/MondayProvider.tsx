@@ -3,7 +3,6 @@ import Monday from 'monday-sdk-js';
 import { MondayClientSdk } from 'monday-sdk-js/types/client-sdk.interface';
 
 type MondayCurrentStateContext = {
-    clientId?: string
     data: {
         itemId: string
     }
@@ -21,8 +20,9 @@ export const MondayProvider = ({ children }: { children: React.ReactNode }) => {
         setIsReady(false);
         const m = Monday();
         m.get('context').then((resp) => {
-            if (!resp.clientId) {
+            if (!resp.data) {
                 console.error('Unable to load Monday context, probably run outside Monday?')
+                console.error(resp)
                 setError('no Monday Client Id in context')
                 return;
             }
