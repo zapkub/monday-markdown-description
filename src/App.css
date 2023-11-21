@@ -1,4 +1,7 @@
 .App {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
 }
 
 .App-logo {
@@ -10,6 +13,19 @@
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
   }
+}
+
+.content-container {
+  flex: 1 1; 
+}
+
+.control-container {
+  flex: 0 0
+}
+
+.md-source {
+  resize: none;
+  width: 320px;
 }
 
 .App-header {
