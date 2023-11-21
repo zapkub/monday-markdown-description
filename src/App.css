@@ -20,9 +20,20 @@
 }
 
 .content-container {
-  flex: 1 1; 
+  padding: 8px;
+  flex: 1 1;
   display: flex;
-  flex-direction: column;
+}
+
+.markdown-container {
+  display: block
+}
+
+.text-container {
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  flex: 1 1; 
 }
 
 .control-container {
@@ -32,7 +43,6 @@
 
 .md-source {
   resize: none;
-  display: block;
   flex: 1 1;
   padding: 8px;
 }

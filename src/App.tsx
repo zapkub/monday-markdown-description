@@ -71,9 +71,13 @@ function App() {
       <div className="content-container">
         {
           isEdit ?
-            <textarea disabled={isSaving} className="md-source" value={text} onChange={onChange} />
+            <div className="text-container">
+              <textarea disabled={isSaving} className="md-source" value={text} onChange={onChange} />
+            </div>
             :
-            <Markdown children={text} />
+            <div className="markdown-container">
+              <Markdown children={text} />
+            </div>
         }
       </div>
       <div className="control-container">
