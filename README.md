@@ -6,8 +6,9 @@ Write a Markdown in your Monday task.
 2. Create new App
 3. Create new `Item View` feature in App
 4. Use this URL `https://zapkub.github.io/monday-markdown-description/` in Feature Build
-5. Go to App > Version and Release 
-6. Install to your Monday board
+   > Or you can `zip` the `/docs` folder and upload to Monday
+6. Go to App > Version and Release 
+7. Install to your Monday board
 
 # Screenshot
 
