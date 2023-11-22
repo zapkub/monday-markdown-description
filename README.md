@@ -14,3 +14,7 @@ Write a Markdown in your Monday task.
 
 ![ss1](./Screenshot%202023-11-22%20004118.jpg)
 ![ss2](./Screenshot%202023-11-22%20004135.jpg)
+
+
+# License
+[MIT](https://opensource.org/license/mit/)
