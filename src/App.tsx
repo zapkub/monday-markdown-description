@@ -3,6 +3,7 @@ import { AttentionBox, Button } from 'monday-ui-react-core';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import Markdown from 'react-markdown'
 import { useMondayClient } from './hooks/MondayProvider';
+import { Base64 } from 'js-base64'
 
 function App() {
 
@@ -21,13 +22,14 @@ function App() {
   const [isDirty, setIsDirty] = useState<boolean>(false);
 
   const storageKey = useMemo(() => `mfmd_value_${monday.mContext?.data.itemId}`, [monday])
+  // const storageKeyV2 = useMemo(() => `mfmd_value_v2_${monday.mContext?.data.itemId}`, [monday])
 
   const reloadData = useCallback(() => {
     console.log('load from storage key', storageKey)
     monday.m?.storage.instance.getItem(storageKey).then(resp => {
       console.log('resp load data', resp)
       try {
-        const textValue = atob(resp.data.value);
+        const textValue = resp.data.value !== null ? Base64.decode(resp.data.value) : ''
         setText(textValue || '');
       } catch (e) {
         console.error('parse data error, expect base64 value but retrive')
@@ -58,7 +60,16 @@ function App() {
   const onSave = useCallback(() => {
     console.log('save to storage key', storageKey)
     setIsSaving(true);
-    const value = btoa(text)
+    if (text.length === 0) {
+      monday.m?.storage.instance.deleteItem(storageKey).then(() => {
+        console.log('deleted')
+        setIsSaving(false)
+        setIsEdit(false)
+        setIsDirty(false)
+      })
+      return
+    }
+    const value = Base64.encode(text);
     monday.m?.storage.instance.setItem(storageKey, value).then((resp) => {
       console.log('saved', resp)
       setIsSaving(false)
@@ -91,12 +102,15 @@ function App() {
         {
           isEdit ?
             <div className="text-container">
-              <textarea disabled={isSaving} className="md-source" value={text} onChange={onChange} />
+              <textarea placeholder='write the task description here...' disabled={isSaving} className="md-source" value={text} onChange={onChange} />
             </div>
             :
-            <div className="markdown-container">
-              <Markdown children={text} />
-            </div>
+            text.length > 0 ?
+              <div className="markdown-container">
+                <Markdown children={text} />
+              </div>
+              :
+              <div className='placeholder'>No description yet<br /> Click 📝 to edit</div>
         }
       </div>
 

@@ -67,6 +67,15 @@
   color: #61dafb;
 }
 
+.placeholder {
+  margin-top: 38px;
+  align-items: stretch;
+  justify-content: stretch;
+  flex: 1 1; 
+  color: darkgray;
+  text-align: center;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
